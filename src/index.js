@@ -39,6 +39,17 @@ const startApp = async () => {
     }
     const { progressChoice } = await inquirer.prompt(progressQuestions);
     console.log(progressChoice)
+    
+    switch (progressChoice) {
+      case "VIEW":
+        console.log("view");
+      case "UPDATE":
+        console.log("update");
+      case "DELETE":
+        console.log("view");
+      case "EXIT":
+        console.log("exit")
+    }
   }
   
 

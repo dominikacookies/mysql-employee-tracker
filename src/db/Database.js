@@ -135,4 +135,4 @@ class Database {
   }
 }
 
-module.exports = Db;
+module.exports = Database;
