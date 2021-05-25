@@ -42,6 +42,12 @@ ON employee_role.manager_id=employee_manager.id
 INNER JOIN role
 ON employee_manager.role_id=role.id;
 
+SELECT CONCAT ( employee_manager.first_name, " ", employee_manager.last_name) as "Manager name", employee_role.first_name as "Report first name" , employee_role.last_name as "Report last name"
+FROM employee employee_role 
+INNER JOIN employee employee_manager
+ON employee_role.manager_id=employee_manager.id
+WHERE employee_role.manager_id = 1
+
 -- Utilised budget : NOT CORRECT ATM -- 
 SELECT 
 	SUM(salary) as "Utilised budget"
