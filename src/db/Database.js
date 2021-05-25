@@ -67,6 +67,17 @@ class Database {
     });
   }
 
+  selectAllFromColumn (column, tableName) {
+        return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        resolve(rows);
+      };
+
+      this.connection.query(`SELECT ${column} FROM ${tableName}`, handleQuery);
+    });
+  }
+
   deleteRow(tableName, columnName, value) {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
