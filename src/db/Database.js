@@ -67,7 +67,7 @@ class Database {
     });
   }
 
-  selectAllFromColumn (column, tableName) {
+  selectAllFromColumn (tableName, column) {
         return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
@@ -75,6 +75,39 @@ class Database {
       };
 
       this.connection.query(`SELECT ${column} FROM ${tableName}`, handleQuery);
+    });
+  }
+
+  getDepartments () {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        resolve(rows);
+      };
+
+      this.connection.query(`SELECT department_name as "Department", role_title as "Role" FROM department LEFT JOIN role ON department.id=role.department_id;`, handleQuery);
+    });
+  }
+
+  getRoles () {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        resolve(rows);
+      };
+
+      this.connection.query(`SELECT role_title as "Role", salary as "Salary", department_name as "Department" FROM role LEFT JOIN department ON role.department_id=department.id;`, handleQuery);
+    });
+  }
+
+  getEmployees () {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) reject(err);
+        resolve(rows);
+      };
+
+      this.connection.query(`SELECT role_title as "Role", salary as "Salary", department_name as "Department" FROM role LEFT JOIN department ON role.department_id=department.idSELECT first_name as "First name", last_name as "Last name", department_name as "Department", role_title as "Role", salary as "Salary" FROM employee LEFT JOIN role on employee.role_id=role.id LEFT JOIN department on role.department_id=department.id;`, handleQuery);
     });
   }
 

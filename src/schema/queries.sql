@@ -1,10 +1,10 @@
 USE company_db;
 
 -- GET all departments with role information
-SELECT department_name as "Department", role_title as "Role", salary as "Salary" FROM department LEFT JOIN role ON department.id=role.department_id;
+SELECT department_name as "Department", role_title as "Role" FROM department LEFT JOIN role ON department.id=role.department_id;
 
 -- GET all roles with department information
-SELECT department_name as "Department", role_title as "Role", salary as "Salary" FROM role LEFT JOIN department ON role.department_id=department.id;
+SELECT role_title as "Role", salary as "Salary", department_name as "Department" FROM role LEFT JOIN department ON role.department_id=department.id;
 
 -- Get all employees with role and department information
 SELECT first_name as "First name", last_name as "Last name", department_name as "Department", role_title as "Role", salary as "Salary" FROM employee LEFT JOIN role on employee.role_id=role.id LEFT JOIN department on role.department_id=department.id;
