@@ -6,8 +6,7 @@ const updateInformation = require("./utils/update/update")
 
 const startApp = async () => {
   const db = new Database("company_db");
-
-  db.start();
+  await db.start();
 
   let inProgress = true;
 
