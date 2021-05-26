@@ -67,14 +67,15 @@ class Database {
     });
   }
 
-  selectAllFromColumnAndGetId (tableName, column) {
+  selectValue (columnContainingValue, tableName, conditionColumn, conditionValue) {
         return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
         resolve(rows);
       };
 
-      this.connection.query(`SELECT id, ${column} FROM ${tableName}`, handleQuery);
+      this.connection.query(`SELECT ${columnContainingValue} FROM ${tableName} WHERE ??=?;`, handleQuery);
+      [conditionColumn, conditionValue]
     });
   }
 
