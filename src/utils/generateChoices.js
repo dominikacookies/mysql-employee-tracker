@@ -1,7 +1,7 @@
-const generateChoices = (array, itemName, value) => {
+const generateChoices = (array, keyName, value) => {
   return array.map((row) => {
     return {
-      name: row[itemName],
+      name: row[keyName],
       value: row[value],
     };
   });
