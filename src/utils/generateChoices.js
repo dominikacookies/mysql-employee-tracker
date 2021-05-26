@@ -1,8 +1,8 @@
-const generateChoices = (array, itemName) => {
+const generateChoices = (array, itemName, value) => {
   return array.map((row) => {
     return {
       name: row[itemName],
-      value: row.id,
+      value: row[value],
     };
   });
 };

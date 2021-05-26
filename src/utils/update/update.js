@@ -36,13 +36,24 @@ const updateInformation = async (db) => {
   switch (updateChoice) {
     case "departments":
       const allDepartments = await db.selectAllFromTable("department")
-      const departmentQuestion = {
+      const departmentQuestions = [
+        {
         type: "list",
-        message: "Select which department you'd like to update",
-        name: "departmentId",
-        choices: generateChoices(allDepartments, "department_name"),
-      }
-      console.log(departmentQuestion)
+        message: "Which department would you like to update?",
+        name: "id",
+        choices: generateChoices(allDepartments, "department_name", "id"),
+        },
+        {
+          type: "input",
+          message: "What would you like to rename this department to?",
+          name: "department_name",
+        }
+      ]
+      
+      const { id, department_name} = await inquirer.prompt(departmentQuestions)
+
+      await db.update("department", {department_name}, "id", id)
+
       break;
     case "roles":
       break;

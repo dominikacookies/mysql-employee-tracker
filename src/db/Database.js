@@ -152,7 +152,7 @@ class Database {
       };
 
       this.connection.query(
-        `UPDATE ${tableName} SET ? WHERE ??="?";`,
+        `UPDATE ${tableName} SET ? WHERE ??=?;`,
         [data, columnName, value],
         handleQuery
       );
