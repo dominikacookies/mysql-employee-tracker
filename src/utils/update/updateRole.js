@@ -6,10 +6,10 @@ const updateRole = async (db) => {
   const allRoles = await db.selectAllFromTable("role")
   const selectRoleToUpdate =
     {
-    type: "list",
-    message: "Which role would you like to update?",
-    name: "id",
-    choices: generateChoices(allRoles, "role_title", "id"),
+      type: "list",
+      message: "Which role would you like to update?",
+      name: "id",
+      choices: generateChoices(allRoles, "role_title", "id"),
     }
   
   const { id } = await inquirer.prompt(selectRoleToUpdate)
@@ -43,14 +43,33 @@ const updateRole = async (db) => {
 
   switch (roleUpdateChoice) {
     case "role_title":
-      const question = {
+      const roleTitleQuestion = {
         type: "input",
         message: "What would you like to set the role title to?",
         name: "role_title"
       }
-    let {role_title} = await inquirer.prompt(question)
-    await db.update("role", {role_title}, "id", id)
-    break;
+      let {role_title} = await inquirer.prompt(roleTitleQuestion)
+      await db.update("role", {role_title}, "id", id)
+      break;
+    case "salary":
+      const salaryQuestion = {
+        type: "input",
+        message: "What would you like to set the salary to?",
+        name: "updatedSalary",
+        validate: (salary) => {
+          if (isNaN(salary)) {
+            return 'Please enter a numerical salary value. Do not enter the currency.';
+          } else {
+            return true;
+          }
+        }
+      }
+      const {updatedSalary} = await inquirer.prompt(salaryQuestion)
+      console.log(typeof updatedSalary)
+      salary = parseFloat(updatedSalary).toFixed(2)
+      await db.update("role", {salary}, "id", id)
+      break;
+
   }
   
 }
