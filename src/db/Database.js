@@ -107,7 +107,7 @@ class Database {
         resolve(rows);
       };
 
-      this.connection.query(`SELECT role_title as "Role", salary as "Salary", department_name as "Department" FROM role LEFT JOIN department ON role.department_id=department.idSELECT first_name as "First name", last_name as "Last name", department_name as "Department", role_title as "Role", salary as "Salary" FROM employee LEFT JOIN role on employee.role_id=role.id LEFT JOIN department on role.department_id=department.id;`, handleQuery);
+      this.connection.query(`SELECT first_name as "First name", last_name as "Last name", department_name as "Department", role_title as "Role", salary as "Salary" FROM employee LEFT JOIN role on employee.role_id=role.id LEFT JOIN department on role.department_id=department.id;`, handleQuery);
     });
   }
 

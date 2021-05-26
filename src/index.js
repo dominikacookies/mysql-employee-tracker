@@ -1,11 +1,12 @@
 const inquirer = require("inquirer");
 
 const Database = require("./db/Database");
+const viewInformation = require("./utils/view/viewOptions")
 
 const startApp = async () => {
-  // const db = new Database("company_db");
+  const db = new Database("company_db");
 
-  // db.start();
+  db.start();
 
   let inProgress = true;
 
@@ -38,17 +39,21 @@ const startApp = async () => {
       ]
     }
     const { progressChoice } = await inquirer.prompt(progressQuestions);
-    console.log(progressChoice)
-    
+
     switch (progressChoice) {
       case "VIEW":
-        console.log("view");
+        viewInformation(db)
+        break;
       case "UPDATE":
+        updateInformation(db)
         console.log("update");
+        break;
       case "DELETE":
-        console.log("view");
+        console.log("delete");
+        break;
       case "EXIT":
         console.log("exit")
+        break;
     }
   }
   
