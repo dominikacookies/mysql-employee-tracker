@@ -71,11 +71,13 @@ class Database {
         return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        resolve(rows);
+        const valueObject = rows[0]
+        resolve(valueObject);
       };
 
-      this.connection.query(`SELECT ${columnContainingValue} FROM ${tableName} WHERE ??=?;`, handleQuery);
-      [conditionColumn, conditionValue]
+      this.connection.query(`SELECT ${columnContainingValue} FROM ${tableName} WHERE ??="?";`, 
+      [conditionColumn, conditionValue],
+      handleQuery);
     });
   }
 
@@ -86,7 +88,7 @@ class Database {
         resolve(rows);
       };
 
-      this.connection.query(`SELECT department_name as "Department", role_title as "Role" FROM department LEFT JOIN role ON department.id=role.department_id;`, handleQuery);
+      this.connection.query(`SELECT department_name as "Department", role_title as "Roles" FROM department LEFT JOIN role ON department.id=role.department_id;`, handleQuery);
     });
   }
 

@@ -1,7 +1,7 @@
-const cTable = require('console.table')
 const inquirer = require("inquirer");
 
-const generateChoices = require("../generateChoices")
+const generateChoices = require("../generateChoices");
+const updateRole = require('./updateRole');
 
 const updateInformation = async (db) => {
   const updateOptions = {
@@ -49,14 +49,16 @@ const updateInformation = async (db) => {
           name: "department_name",
         }
       ]
-      
+
       const { id, department_name} = await inquirer.prompt(departmentQuestions)
 
       await db.update("department", {department_name}, "id", id)
 
       break;
     case "roles":
+      await updateRole(db)
       break;
+
     case "employees":
       break;
     case "reports":
