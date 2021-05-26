@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 
 const Database = require("./db/Database");
 const viewInformation = require("./utils/view/viewOptions")
+const updateInformation = require("./utils/update/update")
 
 const startApp = async () => {
   const db = new Database("company_db");
@@ -46,7 +47,6 @@ const startApp = async () => {
         break;
       case "UPDATE":
         updateInformation(db)
-        console.log("update");
         break;
       case "DELETE":
         console.log("delete");
