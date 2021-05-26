@@ -43,10 +43,10 @@ const startApp = async () => {
 
     switch (progressChoice) {
       case "VIEW":
-        viewInformation(db)
+        await viewInformation(db)
         break;
       case "UPDATE":
-        updateInformation(db)
+        await updateInformation(db)
         break;
       case "DELETE":
         console.log("delete");
