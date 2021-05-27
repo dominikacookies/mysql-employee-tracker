@@ -1,6 +1,8 @@
 const inquirer = require("inquirer");
 
-const updateDepartment = () => {
+const generateChoices = require("../generateChoices");
+
+const updateDepartment = async (db) => {
   const allDepartments = await db.selectAllFromTable("department")
   const departmentQuestions = [
     {
