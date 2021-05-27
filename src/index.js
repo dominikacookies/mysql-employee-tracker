@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 
 const Database = require("./db/Database");
-const viewInformation = require("./utils/view/viewOptions")
+const viewInformation = require("./utils/viewOptions")
 const updateInformation = require("./utils/update/update")
 
 const startApp = async () => {
@@ -27,6 +27,11 @@ const startApp = async () => {
           name: "Update information"
         },
         {
+          short: "Add",
+          value: "ADD",
+          name: "Add information"
+        },
+        {
           short: "Delete",
           value: "DELETE",
           name: "Delete information"
@@ -47,11 +52,14 @@ const startApp = async () => {
       case "UPDATE":
         await updateInformation(db)
         break;
+      case "ADD":
+        await addInformation(db)
+        break;
       case "DELETE":
         console.log("delete");
         break;
       case "EXIT":
-        console.log("exit")
+        db.end()
         break;
     }
   }
