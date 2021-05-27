@@ -15,9 +15,9 @@ const updateRole = async (db) => {
   const { id } = await inquirer.prompt(selectRoleToUpdate)
 
   let {role_title, salary, department_id} = allRoles.find(role => role.id == id)
-  const { department_name } = await db.selectValue("department_name", "department", "id", department_id)
+  const { department_name : currentDepartment } = await db.selectValue("department_name", "department", "id", department_id)
 
-  console.info(`The details for this role are: title = ${role_title}, salary = ${salary}, department = ${department_name}`)
+  console.info(`The details for this role are: title = ${role_title}, salary = ${salary}, department = ${currentDepartment}`)
 
   const roleUpdateOptions = {
     type: "list",
@@ -25,15 +25,15 @@ const updateRole = async (db) => {
     name: "roleUpdateChoice",
     choices: [
       {
-        value: "role_title",
+        value: "updateTitle",
         name: "Title"
       },
       {
-        value: "salary",
+        value: "updateSalary",
         name: "Salary"
       },
       {
-        value: "department_name",
+        value: "updateDepartment",
         name: "Department"
       },
     ]
@@ -42,7 +42,7 @@ const updateRole = async (db) => {
   const { roleUpdateChoice } = await inquirer.prompt(roleUpdateOptions)
 
   switch (roleUpdateChoice) {
-    case "role_title":
+    case "updateTitle":
       const roleTitleQuestion = {
         type: "input",
         message: "What would you like to set the role title to?",
@@ -51,7 +51,8 @@ const updateRole = async (db) => {
       let {role_title} = await inquirer.prompt(roleTitleQuestion)
       await db.update("role", {role_title}, "id", id)
       break;
-    case "salary":
+
+    case "updateSalary":
       const salaryQuestion = {
         type: "input",
         message: "What would you like to set the salary to?",
@@ -65,11 +66,26 @@ const updateRole = async (db) => {
         }
       }
       const {updatedSalary} = await inquirer.prompt(salaryQuestion)
-      console.log(typeof updatedSalary)
       salary = parseFloat(updatedSalary).toFixed(2)
       await db.update("role", {salary}, "id", id)
       break;
 
+    case "updateDepartment":
+      const allDepartments = await db.selectAllFromTable("department")
+      const departmentsExcludingCurrent = allDepartments.filter((department) => department.department_name == currentDepartment ? false : department)
+
+      const updateRoleDepartmentQuestion =
+        {
+          type: "list",
+          message: "Which of the below departments would you like to assign this role to?",
+          name: "department_id",
+          choices: generateChoices(departmentsExcludingCurrent, "department_name", "id"),
+        }
+      
+      const {department_id} = await inquirer.prompt(updateRoleDepartmentQuestion)
+      await db.update("role", {department_id}, "id", id)
+
+    break;
   }
   
 }
