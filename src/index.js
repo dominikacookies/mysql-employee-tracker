@@ -8,9 +8,13 @@ const startApp = async () => {
   const db = new Database("company_db");
   await db.start();
 
+  console.info("Welcome to your company tracker!")
+
   let inProgress = true;
 
   while (inProgress) {
+    console.info("Current company information is as follows:")
+    db.displayKeyCompanyInfo()
     const progressQuestions = {
       type: "list",
       message: "What would you like to do?",
