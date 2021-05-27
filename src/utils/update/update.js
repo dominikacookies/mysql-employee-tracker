@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 
-const generateChoices = require("../generateChoices");
+const updateDepartment = require('./updateDepartment')
 const updateRole = require('./updateRole');
+const updateEmployeeRole = require('./updateEmployee')
 
 const updateInformation = async (db) => {
   const updateOptions = {
@@ -20,7 +21,7 @@ const updateInformation = async (db) => {
         name: "Roles"
       },
       {
-        short: "Employees",
+        short: "Employee role",
         value: "employees",
         name: "Employees"
       },
@@ -35,31 +36,14 @@ const updateInformation = async (db) => {
 
   switch (updateChoice) {
     case "departments":
-      const allDepartments = await db.selectAllFromTable("department")
-      const departmentQuestions = [
-        {
-        type: "list",
-        message: "Which department would you like to update?",
-        name: "id",
-        choices: generateChoices(allDepartments, "department_name", "id"),
-        },
-        {
-          type: "input",
-          message: "What would you like to rename this department to?",
-          name: "department_name",
-        }
-      ]
-
-      const { id, department_name} = await inquirer.prompt(departmentQuestions)
-
-      await db.update("department", {department_name}, "id", id)
-
+      await updateDepartment(db)
       break;
     case "roles":
       await updateRole(db)
       break;
 
     case "employees":
+      await updateEmployeeRole(db)
       break;
     case "reports":
       // const employeesList = await db.selectAllFromTable("employee")
