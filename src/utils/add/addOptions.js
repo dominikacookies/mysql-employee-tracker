@@ -1,7 +1,9 @@
 const inquirer = require("inquirer");
+
 const addDepartment = require("./addDepartment");
 const addRole = require("./addRole");
 const addEmployee = require("./addEmployee");
+
 
 const addInformation = async (db) => {
   const addOptions = {
@@ -32,15 +34,15 @@ const addInformation = async (db) => {
 
   switch (addChoice) {
     case "department":
-      addDepartment(db)
+      await addDepartment(db)
       break;
       
     case "role":
-      addRole(db)
+      await addRole(db)
       break;
 
     case "employee":
-      addEmployee(db)
+      await addEmployee(db)
       break;
     case "back":
       break;
