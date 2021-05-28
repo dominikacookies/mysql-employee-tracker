@@ -4,7 +4,7 @@ const generateChoices = require("../generateChoices");
 
 const updateEmployeeRole = async (db) => {
   const allEmployees = await db.selectAllFromTable("employee")
-  console.log(allEmployees)
+  
   const allEmployeesWithFullNameKey = allEmployees.map(function (employee) {
     employee.fullName = `${employee.first_name} ${employee.last_name}`
     return employee});
