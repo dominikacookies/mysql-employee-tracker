@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const cTable = require('console.table');
 
 class Database {
   constructor(database) {
@@ -39,7 +40,8 @@ class Database {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
-        resolve(rows);
+        console.table(rows)
+        resolve();
       };
 
       this.connection.query(
