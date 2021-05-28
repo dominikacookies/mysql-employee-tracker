@@ -46,7 +46,14 @@ const updateRole = async (db) => {
       const roleTitleQuestion = {
         type: "input",
         message: "What would you like to set the role title to?",
-        name: "role_title"
+        name: "role_title",
+        validate: (role_title) => { 
+          if (role_title.length > 30) {
+            return "Please enter a title that's shorter than 30 characters."
+          } else {
+            return true
+          }
+        }
       }
       let {role_title} = await inquirer.prompt(roleTitleQuestion)
       await db.update("role", {role_title}, "id", id)
