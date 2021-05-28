@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const generateChoices = require("../generateChoices");
 const { validateAnswerLength, validateIsNumber} = require("../questionValidators")
 
-const addRole = (db) => {
+const addRole = async (db) => {
   const allDepartments = await db.selectAllFromTable("department")
   const newRoleQs = [
     {
