@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 
 const generateChoices = require("../generateChoices");
+const { validateAnswerLength, validateIsNumber} = require("../questionValidators")
 
 const updateRole = async (db) => {
   const allRoles = await db.selectAllFromTable("role")
@@ -48,11 +49,7 @@ const updateRole = async (db) => {
         message: "What would you like to set the role title to?",
         name: "role_title",
         validate: (role_title) => { 
-          if (role_title.length > 30) {
-            return "Please enter a title that's shorter than 30 characters."
-          } else {
-            return true
-          }
+          validateAnswerLength(role_title)
         }
       }
       let {role_title} = await inquirer.prompt(roleTitleQuestion)
@@ -65,11 +62,7 @@ const updateRole = async (db) => {
         message: "What would you like to set the salary to?",
         name: "updatedSalary",
         validate: (salary) => {
-          if (isNaN(salary)) {
-            return 'Please enter a numerical salary value. Do not enter the currency.';
-          } else {
-            return true;
-          }
+          validateIsNumber(salary)
         }
       }
       const {updatedSalary} = await inquirer.prompt(salaryQuestion)
