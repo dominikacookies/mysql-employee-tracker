@@ -2,8 +2,8 @@ const inquirer = require("inquirer");
 
 const Database = require("./db/Database");
 const viewInformation = require("./utils/viewOptions")
-const updateInformation = require("./utils/update/update")
-const addInformation = require("./utils/add")
+const updateInformation = require("./utils/update/updateOptions")
+const addInformation = require("./utils/add/addOptions")
 
 const startApp = async () => {
   const db = new Database("company_db");
@@ -64,12 +64,12 @@ const startApp = async () => {
         console.log("delete");
         break;
       case "EXIT":
+        inProgress = false
         db.end()
         break;
     }
   }
   
-
 }
 
 startApp ()
