@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 const Database = require("./db/Database");
 const viewInformation = require("./utils/viewOptions")
 const updateInformation = require("./utils/update/update")
+const addInformation = require("./utils/add")
 
 const startApp = async () => {
   const db = new Database("company_db");
@@ -14,7 +15,7 @@ const startApp = async () => {
 
   while (inProgress) {
     console.info("Current company information is as follows:")
-    db.displayKeyCompanyInfo()
+    await db.displayKeyCompanyInfo()
     const progressQuestions = {
       type: "list",
       message: "What would you like to do?",
