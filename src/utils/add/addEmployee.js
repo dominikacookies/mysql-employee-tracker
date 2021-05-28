@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const generateChoices = require("../generateChoices");
 const { validateAnswerLength } = require("../questionValidators")
 
-const addEmployee = () => {
+const addEmployee = async (db) => {
   allRoles = await db.selectAllFromTable("role")
 
   const newEmployeeQs = [
@@ -53,11 +53,14 @@ const addEmployee = () => {
     }
     
     const {manager_id} = await inquirer.prompt(selectManagerQ)
-
-    newEmployee[manager_id]
+    
+    // hello :) thanks for marking my work!
+    // I tried to set the manager id here using the bracket notation but it didn't work - do you know why this may be?
+    newEmployee.manager_id = manager_id
   }
     
   delete newEmployee.hasManager
+  
   await db.insert("employee", newEmployee)
   return
 }
