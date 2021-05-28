@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 
 const { validateAnswerLength} = require("../questionValidators")
 
-const addDepartment = (db) => {
+const addDepartment = async (db) => {
   const newDepartmentQs = {
     type: "input",
     message: "What would you like to call the new department?",
