@@ -14,7 +14,6 @@ const startApp = async () => {
   let inProgress = true;
 
   while (inProgress) {
-    console.info("Current company information is as follows:")
     await db.displayKeyCompanyInfo()
     const progressQuestions = {
       type: "list",
@@ -23,27 +22,27 @@ const startApp = async () => {
       choices: [
         {
           short: "View",
-          value: "VIEW",
+          value: "view",
           name: "View information"
         },
         {
           short: "Update",
-          value: "UPDATE",
+          value: "update",
           name: "Update information"
         },
         {
           short: "Add",
-          value: "ADD",
+          value: "add",
           name: "Add information"
         },
         {
           short: "Delete",
-          value: "DELETE",
+          value: "delete",
           name: "Delete information"
         },
         {
           short: "Exit",
-          value: "EXIT",
+          value: "exit",
           name: "Exit the application"
         },
       ]

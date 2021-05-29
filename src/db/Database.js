@@ -39,8 +39,10 @@ class Database {
   displayKeyCompanyInfo () {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
-        if (err) reject(err);
+        if (err) reject(err.message);
+        console.info("Current company information is as follows:")
         console.table(rows)
+        console.info("Please note that if a department or role does not have an employee assigned to it, it will not appear in the table.")
         resolve();
       };
 
