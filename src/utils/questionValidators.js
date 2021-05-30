@@ -7,7 +7,7 @@ const validateAnswerLength = (answer, numberOfChars = 30) => {
 }
 
 const validateIsNumber = (answer) => {
-  if (answer) {
+  if (isNaN(answer)) {
     return 'Please enter a numerical salary value. Do not enter the currency.';
   } else {
     return true;
