@@ -9,7 +9,7 @@ const addEmployee = async (db) => {
   const newEmployeeQs = [
     {
       type: "input",
-      message: "What is the employee's first name??",
+      message: "What is the employee's first name?",
       name: "first_name",
       validate: (first_name) => { 
         return validateAnswerLength(first_name)
@@ -17,7 +17,7 @@ const addEmployee = async (db) => {
     },
     {
       type: "input",
-      message: "What is the employee's last name??",
+      message: "What is the employee's last name?",
       name: "last_name",
       validate: (last_name) => { 
         return validateAnswerLength(last_name)
@@ -38,7 +38,9 @@ const addEmployee = async (db) => {
 
   const newEmployee = await inquirer.prompt(newEmployeeQs)
 
-  if (newEmployee.hasManager == "Y" || "y") {
+  console.log(newEmployee)
+
+  if (newEmployee.hasManager == true ) {
     // get all employees and add a full name key
     allEmployees = await db.selectAllFromTable("employee")
     const allEmployeesWithFullNameKey = allEmployees.map(function (employee) {
