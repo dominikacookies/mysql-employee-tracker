@@ -66,8 +66,8 @@ const updateRole = async (db) => {
         type: "input",
         message: "What would you like to set the salary to?",
         name: "updatedSalary",
-        validate: (salary) => {
-          return validateIsNumber(salary)
+        validate: (updatedSalary) => {
+          return validateIsNumber(updatedSalary)
         }
       }
       const {updatedSalary} = await inquirer.prompt(salaryQuestion)
