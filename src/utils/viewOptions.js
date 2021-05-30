@@ -23,11 +23,6 @@ const viewInformation = async (db) => {
         name: "Employee information"
       },
       {
-        short: "Manager's direct reports",
-        value: "reports",
-        name: "List of all direct reports for a manager"
-      },
-      {
         value: "back",
         name: "Go back"
       },
@@ -41,28 +36,20 @@ const viewInformation = async (db) => {
     case "departments":
       const dept = await db.getDepartments()
       console.table(dept)
-      break;
+    break;
+
     case "roles":
       const roles = await db.getRoles()
       console.table(roles)
-      break;
+    break;
+
     case "employees":
       const employees = await db.getEmployees()
       console.table(employees)
-      break;
-    case "reports":
-      // const employeesList = await db.selectAllFromTable("employee")
-      // const managerIds = employeesList.map(({manager_id}) => manager_id )
+    break;
 
-
-      // // const reducer = (acc, employee) => employee.manager_id ? acc.push(employee.manager_id) : acc;
-      // // const managerIds = employeesList.reduce(reducer)
-
-      // const allManagerIds = employeesList.filter((employee) => managerIds.includes(employee.id) ? employee : false)
-      // console.log(allManagerIds)
-      break;
     case "back":
-      break;
+    break;
   }
 
   // allows user to choose when to return for better UX
@@ -79,6 +66,7 @@ const viewInformation = async (db) => {
   }
 
   await inquirer.prompt(returnConfirmationQ);
+  
   return
 }
 
