@@ -49,7 +49,7 @@ const updateRole = async (db) => {
         message: "What would you like to set the role title to?",
         name: "role_title",
         validate: (role_title) => { 
-          validateAnswerLength(role_title)
+          return validateAnswerLength(role_title)
         }
       }
       let {role_title} = await inquirer.prompt(roleTitleQuestion)
@@ -62,7 +62,7 @@ const updateRole = async (db) => {
         message: "What would you like to set the salary to?",
         name: "updatedSalary",
         validate: (salary) => {
-          validateIsNumber(salary)
+          return validateIsNumber(salary)
         }
       }
       const {updatedSalary} = await inquirer.prompt(salaryQuestion)
