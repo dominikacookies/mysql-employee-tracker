@@ -63,6 +63,20 @@ const viewInformation = async (db) => {
     case "back":
       break;
   }
+  const returnConfirmationQ = {
+    type: "list",
+    message: "Press 'enter' whenever you're ready to head back to the main menu",
+    name: "returnConfirm",
+    choices: [
+      {
+        value: "returnConfirm",
+        name: "Back"
+      },
+    ]
+  }
+
+  await inquirer.prompt(returnConfirmationQ);
+  return
 }
 
 
