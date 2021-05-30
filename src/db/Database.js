@@ -40,6 +40,8 @@ class Database {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err.message);
+        rows.forEach(row => row.Manager === null ? row.Manager = "None" : row.Manager );
+
         console.info("Current company information is as follows:")
         console.table(rows)
         console.info("Please note that if a department or role does not have an employee assigned to it, it will not appear in the table.")
@@ -47,7 +49,7 @@ class Database {
       };
 
       this.connection.query(
-        `SELECT employee_role.first_name as "First name" , employee_role.last_name as "Last name", role_title as "Role", salary as "Salary", department_name as "Department", CONCAT ( employee_manager.first_name, " ", employee_manager.last_name) as "Manager name"
+        `SELECT employee_role.first_name as "First name" , employee_role.last_name as "Last name", role_title as "Role", salary as "Salary", department_name as "Department", CONCAT ( employee_manager.first_name, " ", employee_manager.last_name) as "Manager"
         FROM employee employee_role 
         LEFT JOIN role 
         ON employee_role.role_id=role.id 
