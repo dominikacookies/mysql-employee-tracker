@@ -12,8 +12,8 @@ const addDepartment = async (db) => {
     }
   }
 
-  const newDepartment = await inquirer.prompt(newDepartmentQs)
-  await db.insert("department", {newDepartment})
+  const {department_name} = await inquirer.prompt(newDepartmentQs)
+  await db.insert("department", {department_name})
   return
 }
 

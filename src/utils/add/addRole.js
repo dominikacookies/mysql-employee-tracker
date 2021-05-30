@@ -25,7 +25,7 @@ const addRole = async (db) => {
       message: "What is the salary for this role?",
       name: "salary",
       validate: (salary) => {
-        validateIsNumber(salary)
+        return validateIsNumber(salary)
       }
     },
   ]
