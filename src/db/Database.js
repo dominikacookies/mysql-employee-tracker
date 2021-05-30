@@ -91,6 +91,7 @@ class Database {
     return new Promise((resolve, reject) => {
       const handleQuery = (err, rows) => {
         if (err) reject(err);
+        rows.forEach(row => row.Roles === null ? row.Roles = "None assigned" : row.Roles );
         resolve(rows);
       };
 
