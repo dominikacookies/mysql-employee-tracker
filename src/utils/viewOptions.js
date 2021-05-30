@@ -2,7 +2,7 @@ const cTable = require('console.table')
 const inquirer = require("inquirer");
 
 const viewInformation = async (db) => {
-  const viewOptions = {
+  const viewOptionQ = {
     type: "list",
     message: "What information would you like to view?",
     name: "viewChoice",
@@ -34,7 +34,7 @@ const viewInformation = async (db) => {
     ]
   }
 
-  const { viewChoice } = await inquirer.prompt(viewOptions);
+  const { viewChoice } = await inquirer.prompt(viewOptionQ);
 
   switch (viewChoice) {
     case "departments":
