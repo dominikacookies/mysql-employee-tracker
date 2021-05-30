@@ -15,7 +15,12 @@ const startApp = async () => {
   let inProgress = true;
 
   while (inProgress) {
-    await db.displayKeyCompanyInfo()
+
+    const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+    const displayCompanyInfo = () => delay().then(() => db.displayKeyCompanyInfo())
+
+    await displayCompanyInfo()
+
     const progressQuestions = {
       type: "list",
       message: "What would you like to do?",
