@@ -30,8 +30,12 @@ const addRole = async (db) => {
     },
   ]
   const newRole = await inquirer.prompt(newRoleQs)
+
+  //format the salary to have two decimal places
   parseFloat(newRole.salary).toFixed(2)
+
   await db.insert("role", newRole)
+  
   return
 }
 

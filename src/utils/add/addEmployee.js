@@ -39,6 +39,7 @@ const addEmployee = async (db) => {
   const newEmployee = await inquirer.prompt(newEmployeeQs)
 
   if (newEmployee.hasManager == "Y" || "y") {
+    // get all employees and add a full name key
     allEmployees = await db.selectAllFromTable("employee")
     const allEmployeesWithFullNameKey = allEmployees.map(function (employee) {
       employee.fullName = `${employee.first_name} ${employee.last_name}`
@@ -58,7 +59,8 @@ const addEmployee = async (db) => {
     // I tried to set the manager id here using the bracket notation but it didn't work - do you know why this may be?
     newEmployee.manager_id = manager_id
   }
-    
+  
+  // delete not needed hasManager key
   delete newEmployee.hasManager
   
   await db.insert("employee", newEmployee)

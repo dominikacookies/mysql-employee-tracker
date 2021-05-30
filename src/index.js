@@ -16,9 +16,9 @@ const startApp = async () => {
 
   while (inProgress) {
 
+    // delay the rendering of company info for better UX
     const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
     const displayCompanyInfo = () => delay().then(() => db.displayKeyCompanyInfo())
-
     await displayCompanyInfo()
 
     const progressQuestions = {
@@ -55,6 +55,7 @@ const startApp = async () => {
     }
     const { progressChoice } = await inquirer.prompt(progressQuestions);
 
+    // based on chosen way to progress call relevant fn
     switch (progressChoice) {
       case "view":
         await viewInformation(db)

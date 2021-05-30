@@ -30,29 +30,30 @@ const deleteInformation = async (db) => {
 
   const { deleteChoice } = await inquirer.prompt(deleteOptionQ);
 
+  // get information from the table the user wants to delete from
   const allInformation = await db.selectAllFromTable(deleteChoice)
 
 
   let questionKeyName = "";
 
+  // set the relevant questionKeyName to use in the generateChoices fn
   switch (deleteChoice) {
     case "department":
       questionKeyName = "department_name" 
-      break;
+    break;
 
     case "role":
       questionKeyName = "role_title"
-      break;
+    break;
 
     case "employee":
       allInformation.forEach(function (employee) {
         employee.fullName = `${employee.first_name} ${employee.last_name}`
         return employee});
-      console.log(allInformation)
 
       questionKeyName = "fullName"
 
-      break;
+    break;
   }
 
   const confirmDeletionChoiceQ = {
@@ -62,8 +63,8 @@ const deleteInformation = async (db) => {
     choices: generateChoices(allInformation, questionKeyName, "id")
   }
 
-  const {id} = await inquirer.prompt(confirmDeletionChoiceQ)
 
+  const {id} = await inquirer.prompt(confirmDeletionChoiceQ)
   await db.deleteRow(deleteChoice, "id", id)
 
   return

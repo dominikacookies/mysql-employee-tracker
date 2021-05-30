@@ -18,6 +18,7 @@ const updateDepartment = async (db) => {
     }
   ]
 
+  // destructure new department information from answers
   const { id, department_name} = await inquirer.prompt(departmentQuestions)
 
   await db.update("department", {department_name}, "id", id)

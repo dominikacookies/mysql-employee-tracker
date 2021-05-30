@@ -36,6 +36,7 @@ const viewInformation = async (db) => {
 
   const { viewChoice } = await inquirer.prompt(viewOptionQ);
 
+  // based on choice get info from db and render.
   switch (viewChoice) {
     case "departments":
       const dept = await db.getDepartments()
@@ -63,6 +64,8 @@ const viewInformation = async (db) => {
     case "back":
       break;
   }
+
+  // allows user to choose when to return for better UX
   const returnConfirmationQ = {
     type: "list",
     message: "Press 'enter' whenever you're ready to head back to the main menu",

@@ -32,20 +32,25 @@ const addInformation = async (db) => {
   
   const { addChoice } = await inquirer.prompt(addOptions);
 
+  // based on the selected information to add, call the relevant add fn
   switch (addChoice) {
     case "department":
       await addDepartment(db)
-      break;
+    
+    break;
       
     case "role":
       await addRole(db)
-      break;
+    
+    break;
 
     case "employee":
       await addEmployee(db)
-      break;
+      
+    break;
+    
     case "back":
-      break;
+    break;
   }
 }
 

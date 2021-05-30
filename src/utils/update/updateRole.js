@@ -13,13 +13,15 @@ const updateRole = async (db) => {
       choices: generateChoices(allRoles, "role_title", "id"),
     }
   
+  // destructure id of role to update
   const { id } = await inquirer.prompt(selectRoleToUpdate)
 
-  let {role_title, salary, department_id} = allRoles.find(role => role.id == id)
-  const { department_name : currentDepartment } = await db.selectValue("department_name", "department", "id", department_id)
+  // get info about chosen role and display it
+  const {role_title : currentTitle , salary : currentSalary, department_id : currentDepartmentId} = allRoles.find(role => role.id == id)
+  const { department_name : currentDepartment } = await db.selectValue("department_name", "department", "id", currentDepartmentId)
 
-  console.info(`The details for this role are: title = ${role_title}, salary = ${salary}, department = ${currentDepartment}`)
-
+  console.info(`The details for this role are: title = ${currentTitle}, salary = ${currentSalary}, department = ${currentDepartment}`)
+  
   const roleUpdateOptions = {
     type: "list",
     message: "What information would you like to update?",
@@ -40,6 +42,7 @@ const updateRole = async (db) => {
     ]
   }
 
+  // user chooses what about the role they'd like to update
   const { roleUpdateChoice } = await inquirer.prompt(roleUpdateOptions)
 
   switch (roleUpdateChoice) {
@@ -52,9 +55,11 @@ const updateRole = async (db) => {
           return validateAnswerLength(role_title)
         }
       }
-      let {role_title} = await inquirer.prompt(roleTitleQuestion)
+
+      const {role_title} = await inquirer.prompt(roleTitleQuestion)
       await db.update("role", {role_title}, "id", id)
-      break;
+
+    break;
 
     case "updateSalary":
       const salaryQuestion = {
@@ -68,7 +73,8 @@ const updateRole = async (db) => {
       const {updatedSalary} = await inquirer.prompt(salaryQuestion)
       salary = parseFloat(updatedSalary).toFixed(2)
       await db.update("role", {salary}, "id", id)
-      break;
+
+    break;
 
     case "updateDepartment":
       const allDepartments = await db.selectAllFromTable("department")
@@ -82,6 +88,7 @@ const updateRole = async (db) => {
           choices: generateChoices(departmentsExcludingCurrent, "department_name", "id"),
         }
       
+      // I tried to chain the filter fn on line 92 but this resulted in an error - would you know why?
       const {department_id} = await inquirer.prompt(updateRoleDepartmentQuestion)
       await db.update("role", {department_id}, "id", id)
 
